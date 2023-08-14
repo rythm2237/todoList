@@ -1,3 +1,5 @@
+// const { json } = require("express/lib/response");
+
 let $ = document;
 let newTodo = $.getElementById("itemInput");
 let ul = $.getElementById("todoList");
@@ -6,13 +8,24 @@ let ul = $.getElementById("todoList");
 let addBtn = $.getElementById("addButton");
 let clearBtn = $.getElementById("clearButton");
 let doneBtn = $.querySelector(".btn-success");
-let deleteBtn = $.querySelector(".btn-danger");
+let deleteBtn = $.getElementById("delete");
+
+
+
+// Buttons function
+
+// deleteBtn.addEventListener('click',function(){
+//     if(deleteBtn){
+
+//         alert('yes')
+//     }
+// })
+
+
 let todosArrey = []
 
 
-deleteBtn.addEventListener('click',function(){
-    alert('yes')
-})
+
 function addNewTodo(){
 
     let newActivity= {
@@ -20,38 +33,52 @@ function addNewTodo(){
         title: newTodo.value,
         complete: false 
     }
-
     todosArrey.push(newActivity)
     setLocalStorage(todosArrey)
-
-    console.log(todosArrey)
     
-    
-
-    let newLi = $.createElement("li")
-    newLi.className = "completed well"
-    newLi.innerHTML = `<label>${newActivity.title}</label>
-    <button class="btn btn-success">Complete</button>
-    <button class="btn btn-danger">Delete</button>`
-    
-    ul.append(newLi)
     newTodo.value = ""
 
-    // deleteBtn.addEventListener("click", function(event){
-    //     console.log(event.target.parentElement)
-    // })
 }
 
 function setLocalStorage(newTodosList){
     localStorage.setItem("todos", JSON.stringify(newTodosList))
 }
 
-addBtn.addEventListener("click", addNewTodo)
+function getLocalStorage(){
+    let localStorageData = JSON.parse(localStorage.getItem("todos"))
+    if(localStorageData){
+        todosArrey = localStorageData
+    } else{
+        todosArrey = []
+    }
+    todoGenerator(todosArrey)
+}
+
+window.addEventListener('load', getLocalStorage)
+
+
 newTodo.addEventListener("keydown", function(event){
     if (event.keyCode === 13){
         addNewTodo()
+        getLocalStorage()
     }
 })
+
+function todoGenerator(todo){
+    ul.innerHTML=""
+    todo.forEach(element => {
+        
+        let newLi = $.createElement("li")
+        newLi.className = "completed well"
+        newLi.innerHTML = `<label>${element.title}</label>
+        <button class="btn btn-success">Complete</button>
+        <button class="btn btn-danger">Delete</button>`
+        
+        ul.append(newLi)
+    });
+}
+
+
 
 
 
