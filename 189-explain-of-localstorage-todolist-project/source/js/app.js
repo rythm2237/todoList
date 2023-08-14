@@ -24,6 +24,15 @@ let deleteBtn = $.getElementById("delete");
 
 let todosArrey = []
 
+clearBtn.addEventListener('click', function(){
+    ul.innerHTML=''
+    localStorage.clear()
+})
+
+addBtn.addEventListener("click", function(){
+    addNewTodo()
+    getLocalStorage()
+})
 
 
 function addNewTodo(){
