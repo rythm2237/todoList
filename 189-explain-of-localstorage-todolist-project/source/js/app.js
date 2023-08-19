@@ -15,6 +15,7 @@ function clearTodos(){
     localStorage.removeItem('todos')
 }
 function addNewTodo(){
+    if(newTodo.value != ""){
     let newActivity = {
         id: todosArrey.length + 1,
         title: newTodo.value,
@@ -25,7 +26,7 @@ function addNewTodo(){
     newTodo.value = ""
     newTodo.focus()
 }
-
+}
 function setLocalStorage(newTodosList){
     localStorage.setItem("todos", JSON.stringify(newTodosList))
 }
@@ -49,11 +50,11 @@ newTodo.addEventListener("keydown", function(event){
     }
 })
 
-function todoGenerator(todo){
+function todoGenerator(todosList){
     let newLi, newLable, newDeleteBtn, newCompleteBtn
     todoListElem.innerHTML=""
     
-    todo.forEach(element => {
+    todosList.forEach(element => {
         newLi = $.createElement("li")
         newLi.className = "completed well"
         
@@ -63,16 +64,36 @@ function todoGenerator(todo){
         newCompleteBtn = $.createElement('button')
         newCompleteBtn.className = "btn btn-success"
         newCompleteBtn.innerHTML = "complete"
+        newCompleteBtn.setAttribute("onclick", "completeItem(" + element.id + ")")
         
         newDeleteBtn = $.createElement('button')
         newDeleteBtn.className = "btn btn-danger"
         newDeleteBtn.innerHTML = "Delete"
         newDeleteBtn.setAttribute("onclick", "deleteItem(" + element.id + ")")
+        
+        if(element.complete){
+            newLi.className = "uncompleted well"
+            newCompleteBtn.innerHTML = "Uncomplete"
+        }
+ 
         newLi.append(newLable, newCompleteBtn, newDeleteBtn)
         todoListElem.append(newLi)
     });
 }
 
+function completeItem(todosId){
+    let localStorageData = JSON.parse(localStorage.getItem("todos"))
+    todosArrey = localStorageData
+    
+    todosArrey.forEach(function(todo){
+        if(todo.id === todosId){
+            console.log(todosId)
+            todo.complete = !todo.complete
+        }
+    })
+    setLocalStorage(todosArrey)
+    todoGenerator(todosArrey)
+}
 
 function deleteItem(todosId){
     let localStorageData = JSON.parse(localStorage.getItem("todos"))

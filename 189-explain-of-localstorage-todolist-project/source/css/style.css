@@ -7,10 +7,12 @@
 .completed{
 
 }
-.uncompleted label{
+.uncompleted {
   color: #afa7a7;
   text-decoration: line-through;
 }
 #todoList .btn{
-  margin-left: 10px;
+  margin: auto 10px;
+  float: right;
+
 }
