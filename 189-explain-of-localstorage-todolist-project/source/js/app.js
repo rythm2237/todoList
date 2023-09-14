@@ -108,8 +108,7 @@ function deleteItem(todosId){
     todoGenerator(todosArrey)
 
 }    
-    
-    
+
     window.addEventListener('load', getLocalStorage)
     clearBtn.addEventListener('click', clearTodos)
     addBtn.addEventListener("click", function(){
