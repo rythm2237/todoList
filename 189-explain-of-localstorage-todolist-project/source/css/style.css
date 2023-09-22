@@ -4,8 +4,8 @@
 #todoList li{
   list-style-type: none;
 }
-.completed{
-
+.uncompleted{
+background-color: rgb(98, 147, 217);
 }
 .uncompleted {
   color: #afa7a7;
@@ -15,4 +15,7 @@
   margin: auto 10px;
   float: right;
 
+}
+.unvisable{
+  visibility: hidden;
 }

@@ -9,6 +9,7 @@ let clearBtn = $.getElementById("clearButton");
 
 let todosArrey = []
 
+
 function clearTodos(){
     todosArrey= []
     todoGenerator(todosArrey)
@@ -74,6 +75,7 @@ function todoGenerator(todosList){
         if(element.complete){
             newLi.className = "uncompleted well"
             newCompleteBtn.innerHTML = "Uncomplete"
+            newDeleteBtn.className = "unvisable"
         }
  
         newLi.append(newLable, newCompleteBtn, newDeleteBtn)
@@ -87,7 +89,6 @@ function completeItem(todosId){
     
     todosArrey.forEach(function(todo){
         if(todo.id === todosId){
-            console.log(todosId)
             todo.complete = !todo.complete
         }
     })
@@ -108,7 +109,8 @@ function deleteItem(todosId){
     todoGenerator(todosArrey)
 
 }    
-
+    
+    
     window.addEventListener('load', getLocalStorage)
     clearBtn.addEventListener('click', clearTodos)
     addBtn.addEventListener("click", function(){
